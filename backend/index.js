@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
 
 //database
 const connectDB = async () => {
@@ -18,6 +19,7 @@ const connectDB = async () => {
 dotenv.config();
 app.use(express.json());
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 app.listen(8000, () => {
   console.log('app is running on port 8000');
