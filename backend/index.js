@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
+const commentRouter = require('./routes/comments');
 
 //database
 const connectDB = async () => {
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/posts', postsRouter);
+app.use('/api/comments', commentRouter);
 
 app.listen(8000, () => {
   console.log('app is running on port 8000');
