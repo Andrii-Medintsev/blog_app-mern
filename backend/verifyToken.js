@@ -12,7 +12,7 @@ const verifyToken = ( req, res, next) => {
       return res.status(403).json('Token is not valid!');
     }
 
-    req.userId = data.indexOf;
+    req.userId = data._id;
     next();
   })
 }

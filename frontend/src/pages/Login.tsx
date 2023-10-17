@@ -19,7 +19,7 @@ const Login = () => {
         { withCredentials: true }
       );
       setUser(res.data);
-      console.log('login successfull');
+      console.log('login successfully');
       navigate('/');
     } catch (error) {
       setIsError(true);
