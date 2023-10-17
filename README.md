@@ -1,5 +1,5 @@
 # Blog app
-Blog application with base functionality, build utilizing MERN stack
+Blog application with base functionality, build using the MERN stack, Tailwind was used for styling.
 ***
 Instruction to run app locally
 1. Open bash/zsh terminal
