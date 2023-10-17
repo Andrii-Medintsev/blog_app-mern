@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import Comment from '../components/Comment';
@@ -8,6 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Post } from '../types/Post';
 import { ContextType, UserContext } from '../context/UserContext';
 import Loader from '../components/Loader';
+import { CommentType } from '../types/Comment';
 
 const PostDetails = () => {
   const [post, setPost] = useState<Post | null>(null);
@@ -15,6 +17,8 @@ const PostDetails = () => {
   const { user } = useContext(UserContext) as ContextType;
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comment, setComment] = useState('');
 
   const fetchPost = async () => {
     setIsLoading(true);
@@ -24,14 +28,49 @@ const PostDetails = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   const handleDeletePost = async () => {
     try {
-      await axios.delete(URL + '/api/posts/' + postId, { withCredentials: true });
+      await axios.delete(
+        URL + '/api/posts/' + postId,
+        { withCredentials: true }
+      );
+
       navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchPostComments = async () => {
+    try {
+      const res = await axios.get(URL + '/api/comments/post/' + postId);
+      setComments(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addComment = async () => {
+    try {
+      const newComment = {
+        comment,
+        author: user?.username,
+        postId,
+        userId: user?._id,
+      };
+
+      await axios.post(
+        URL + '/api/comments/create', newComment,
+        { withCredentials: true }
+      );
+
+      fetchPostComments();
+      setComment('');
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +78,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     fetchPost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchPostComments();
   }, [postId]);
 
   let date;
@@ -53,23 +92,29 @@ const PostDetails = () => {
   return (
     <>
       {isLoading ? (
-      <div className='flex grow justify-center items-center'>
-        <Loader />
-      </div>
+        <div className='flex grow justify-center items-center'>
+          <Loader />
+        </div>
       ) : (
         <div className='grow px-8 md:px-[200px] mt-8'>
           <div className='flex justify-between items-center space-x-2'>
             <h1 className='text-2xl font-bold text-black'>{post?.title}</h1>
             {user?._id === post?.userId && (
               <div className='flex justify-center items-center space-x-2'>
-                <p className='cursor-pointer hover:scale-110' onClick={() => navigate('/edit/' + postId)}>
+                <p
+                  className='cursor-pointer hover:scale-110'
+                  onClick={() => navigate('/edit/' + postId)}
+                >
                   <BiEdit />
                 </p>
-                <p className='cursor-pointer hover:scale-110' onClick={handleDeletePost}>
+                <p
+                  className='cursor-pointer hover:scale-110'
+                  onClick={handleDeletePost}
+                >
                   <MdDelete />
                 </p>
-              </div>)
-            }
+              </div>
+            )}
           </div>
           <div className='flex justify-between items-center mt-2 md:mt-4'>
             <p>{`@${post?.username}`}</p>
@@ -83,19 +128,23 @@ const PostDetails = () => {
           {/* comments */}
           <div className='flex flex-col mt-6'>
             <h3 className='font-bold'>Comments:</h3>
-            {/* comment */}
-            <Comment />
-            <Comment />
+            {comments?.map((comment) => (
+              <Comment key={comment._id} comment={comment} />
+            ))}
 
             {/* Write comment */}
-            <div className='flex flex-col mt-4 md:flex-row w-full rounded-md md:border'>
+            <div className='flex flex-col mt-4 md:flex-row w-full rounded-md md:border hover:shadow-sm'>
               <input
                 type='text'
                 placeholder='Write a comment'
+                onChange={(e) => setComment(e.target.value)}
                 className='md:w-[80%] border md:border-none px-4 py-2 mt-4 md:mt-0 outline-0 rounded-md'
               />
 
-              <button className='bg-black text-white text-xs px-4 py-2 md:w-[20%] mt-4 md:mt-0 rounded-md md:rounded-e-md md:rounded-s-none'>
+              <button
+                onClick={addComment}
+                className='bg-black text-white text-xs px-4 py-2 md:w-[20%] mt-4 md:mt-0 rounded-md md:rounded-e-md md:rounded-s-none'
+              >
                 Add Comment
               </button>
             </div>
