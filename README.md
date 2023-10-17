@@ -1,1 +1,1 @@
-# blog_app-mern
+# Blog app
