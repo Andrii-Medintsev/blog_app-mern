@@ -1,12 +1,22 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const user = true;
+  const user = false;
 
   return (
     <div className='flex items-center justify-between px-6 md:px-[200px] py-4 text-white bg-black'>
-      <h1 className='text-xl font-extrabold'>
-        <Link to='/'>Blog App</Link>
+      <h1 className='text-xl font-extrabold underline-offset-8'>
+        <NavLink
+          to='/'
+          style={({ isActive }) => {
+            return {
+              // fontWeight: isActive ? 'bold' : '',
+              textDecoration: isActive ? 'underline' : 'none',
+            };
+          }}
+        >
+          Blog
+        </NavLink>
       </h1>
       <div className='flex items-center justify-center space-x-2 md:space-x-4'>
         {user ? (
