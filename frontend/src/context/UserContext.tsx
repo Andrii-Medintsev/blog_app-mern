@@ -1,29 +1,21 @@
 import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { URL } from '../pages/url';
+import { User } from '../types/User';
 
 type Props = {
   children: JSX.Element;
 };
 
-interface UserFromServer {
-  createdAt: string;
-  email: string;
-  updatedAt: string;
-  username: string;
-  __v: number;
-  _id: string;
-}
-
 export type ContextType = {
-  user: UserFromServer | null;
-  setUser: (prev: UserFromServer | null) => void;
+  user: User | null;
+  setUser: (prev: User | null) => void;
 };
 
 export const UserContext = createContext<ContextType | null>(null);
 
 export const UserContextProvider: React.FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<UserFromServer | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     getUser();
