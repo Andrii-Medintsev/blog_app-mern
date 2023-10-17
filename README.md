@@ -1,5 +1,4 @@
 # Blog app
-***
 Blog application with base functionality, build utilizing MERN stack
 ***
 Instructions to run app locally
