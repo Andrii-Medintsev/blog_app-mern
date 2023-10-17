@@ -9,6 +9,6 @@ Instructions to run app locally
 7. After the installation is complete, navigate to the backend folder, run `cd ../backend`
 8. Inside backend folder run `npm i`
 9. After the installation is complete, run inside backend folder `npm start` This will run server localy
-10. Open new tab in your terminal and navigate to fronend folder
+10. Open new tab in your terminal and navigate to fronend folder `cd ../frontend`
 11. Inside frontend folder run `npm run dev`
-12. In your browser of choice go to `http://localhost:1573` to see how the app looks on the client
+12. In your browser of choice go to `http://localhost:5173` to see how the app looks on the client
