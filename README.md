@@ -3,7 +3,7 @@ Instructions to run app locally
 1. Open bash/zsh terminal
 2. Navigate to the folder on your computer where you will clone the project
 3. Inside folder run this comand: `git clone https://github.com/Andrii-Medintsev/blog_app-mern.git`
-4. ***Optionally*** to open project in your code editor of choice run `code blog_app-mern`
+4. <u>***Optionally***</u> to open project in your code editor of choice run `code blog_app-mern`
 5. Navigate to frontend folder using this command: `cd blog_app-mern/frontend`
 6. Inside frontend folder run `npm i`
 7. After the installation is complete, navigate to the backend folder, run `cd ../backend`
