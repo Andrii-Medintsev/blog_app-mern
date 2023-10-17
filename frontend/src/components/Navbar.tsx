@@ -1,7 +1,24 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { ContextType, UserContext } from '../context/UserContext';
+import axios from 'axios';
+import { URL } from '../pages/url';
 
 const Navbar = () => {
-  const user = false;
+  const { user, setUser } = useContext(UserContext) as ContextType;
+
+  const handleLogout = async () => {
+    try {
+      await axios.get(
+        URL + '/api/auth/logout',
+        {withCredentials: true},
+      );
+
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className='flex items-center justify-between px-6 md:px-[200px] py-4 text-white bg-black'>
@@ -31,7 +48,7 @@ const Navbar = () => {
                   };
                 }}
               >
-                Write
+                Write post
               </NavLink>
             </h3>
             <h3 className=' hover:underline underline-offset-8'>
@@ -45,6 +62,11 @@ const Navbar = () => {
                 }}
               >
                 Profile
+              </NavLink>
+            </h3>
+            <h3 className=' hover:underline underline-offset-8' onClick={handleLogout}>
+              <NavLink to='/'>
+                Logout
               </NavLink>
             </h3>
           </>
