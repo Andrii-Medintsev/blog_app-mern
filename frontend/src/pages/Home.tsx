@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <div className='grow px-6 md:px-[200px] mt-8'>
+    <div className='grow w-full px-6 md:px-[200px] mt-8'>
       {isLoading ? (
         <div className='h-full flex justify-center items-center'>
           <Loader />

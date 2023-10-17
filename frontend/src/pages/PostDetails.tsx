@@ -3,7 +3,7 @@ import { MdDelete } from 'react-icons/md';
 import Comment from '../components/Comment';
 import axios from 'axios';
 import { URL } from './url';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { Post } from '../types/Post';
 import { ContextType, UserContext } from '../context/UserContext';
@@ -14,7 +14,7 @@ const PostDetails = () => {
   const postId = useParams().id;
   const { user } = useContext(UserContext) as ContextType;
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
 
   const fetchPost = async () => {
     setIsLoading(true);
@@ -28,8 +28,18 @@ const PostDetails = () => {
     }
   };
 
+  const handleDeletePost = async () => {
+    try {
+      await axios.delete(URL + '/api/posts/' + postId, { withCredentials: true });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchPost();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
   let date;
@@ -52,10 +62,10 @@ const PostDetails = () => {
             <h1 className='text-2xl font-bold text-black'>{post?.title}</h1>
             {user?._id === post?.userId && (
               <div className='flex justify-center items-center space-x-2'>
-                <p className='cursor-pointer hover:scale-110'>
+                <p className='cursor-pointer hover:scale-110' onClick={() => navigate('/edit/' + postId)}>
                   <BiEdit />
                 </p>
-                <p className='cursor-pointer hover:scale-110'>
+                <p className='cursor-pointer hover:scale-110' onClick={handleDeletePost}>
                   <MdDelete />
                 </p>
               </div>)
