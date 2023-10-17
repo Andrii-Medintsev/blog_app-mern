@@ -14,16 +14,6 @@ router.post('/create', verifyToken, async (req, res) => {
   }
 })
 
-//update
-router.put('/:id', verifyToken, async (req, res) => {
-  try {
-    const updateComment = await Comment.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-    res.status(200).json(updateComment);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
 //delete
 router.delete('/:id', verifyToken, async (req, res) => {
   try {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import { ContextType, UserContext } from '../context/UserContext';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +24,6 @@ const EditPost = () => {
 
   useEffect(() => {
     fetchPost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId])
 
   const handlePostUpdate = async (e: React.FormEvent) => {

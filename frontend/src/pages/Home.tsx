@@ -34,6 +34,8 @@ const Home = () => {
         <div className='h-full flex justify-center items-center'>
           <Loader />
         </div>
+      ) : !posts.length ? (
+        <h3 className='text-center text-xl md:text-3xl'>No posts yet</h3>
       ) : (
         <>
           {posts.map((post) => (

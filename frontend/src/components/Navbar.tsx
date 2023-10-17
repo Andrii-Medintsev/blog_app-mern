@@ -27,7 +27,6 @@ const Navbar = () => {
           to='/'
           style={({ isActive }) => {
             return {
-              // fontWeight: isActive ? 'bold' : '',
               textDecoration: isActive ? 'underline' : 'none',
             };
           }}
@@ -53,10 +52,9 @@ const Navbar = () => {
             </h3>
             <h3 className=' hover:underline underline-offset-8'>
               <NavLink
-                to='/profile/12'
+                to={'/profile/' + user._id}
                 style={({ isActive }) => {
                   return {
-                    // fontWeight: isActive ? 'bold' : '',
                     textDecoration: isActive ? 'underline' : 'none',
                   };
                 }}
@@ -77,7 +75,6 @@ const Navbar = () => {
                 to='/login'
                 style={({ isActive }) => {
                   return {
-                    // fontWeight: isActive ? 'bold' : '',
                     textDecoration: isActive ? 'underline' : 'none',
                   };
                 }}
@@ -90,7 +87,6 @@ const Navbar = () => {
                 to='/register'
                 style={({ isActive }) => {
                   return {
-                    // fontWeight: isActive ? 'bold' : '',
                     textDecoration: isActive ? 'underline' : 'none',
                   };
                 }}

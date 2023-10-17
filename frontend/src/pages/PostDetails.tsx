@@ -116,6 +116,7 @@ const PostDetails = () => {
               </div>
             )}
           </div>
+          
           <div className='flex justify-between items-center mt-2 md:mt-4'>
             <p>{`@${post?.username}`}</p>
             <div className='flex space-x-2'>
